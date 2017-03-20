@@ -1,5 +1,30 @@
 <?php
 require 'partials/header.php';
+require 'includes/config.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$title = $image_url = $content = $link = '';
+// Add data from form
+$title = $_POST['title'];
+$image_url = $_POST['image_url'];
+$content = $_POST['content'];
+$link = $_POST['link'];
+// Next, we must do some validation to see if we got valid data
+$errors = [];
+
+createProject($dbh, $title, $image_url, $content, $link);
+header("Location: dashboard.php");
+die();
+  }
+  // Here is where you would send an email or save to the database etc
+  // pass the function to run the updateDatabase
+
+  // require 'thanks.php';
+  // require 'includes/email-form.php';
+  // mail();
+  // require 'index.php';
+  // die();
+
 ?>
         <!-- Start of Content -->
         <div class="container">
@@ -21,37 +46,37 @@ require 'partials/header.php';
 
                                 <!-- Title Input -->
                                 <div class="form-group">
-                                    <label for="projectName" class="col-md-4 control-label">Title</label>
+                                    <label for="title" class="col-md-4 control-label">Title<?=!empty($errors['title']) ? $errors['title'] : ''; ?></label>
 
                                     <div class="col-md-6">
-                                        <input id="projectName" type="text" class="form-control" name="projectName" value="" required="" autofocus="">
+                                        <input id="title" type="text" class="form-control" name="title" value="<?=!empty($title) ? $title : ''; ?>" required="" autofocus="">
                                     </div>
                                 </div>
 
                                 <!-- Image Url Input -->
                                 <div class="form-group">
-                                    <label for="projectImgUrl" class="col-md-4 control-label">Image Url</label>
+                                    <label for="image_url" class="col-md-4 control-label">Image Url<?=!empty($errors['image_url']) ? $errors['image_url'] : ''; ?></label>
 
                                     <div class="col-md-6">
-                                        <input id="projectImgUrl" type="text" class="form-control" name="projectImgUrl" value="" required="" autofocus=""  onchange="readURL(this)">
+                                        <input id="image_url" type="text" class="form-control" name="image_url" value="<?=!empty($image_url) ? $image_url : ''; ?>" required="" autofocus=""  onchange="readURL(this)">
                                     </div>
                                 </div>
 
                                 <!-- Content Input -->
                                 <div class="form-group">
-                                    <label for="projectContent" class="col-md-4 control-label">Content</label>
+                                    <label for="content" class="col-md-4 control-label">Content<?=!empty($errors['content']) ? $errors['content'] : ''; ?></label>
 
                                     <div class="col-md-6">
-                                        <input id="projectContent" type="text" class="form-control" name="projectContent" value="" required="" autofocus="">
+                                        <input id="content" type="text" class="form-control" name="content" value="<?=!empty($content) ? $content : ''; ?>" required="" autofocus="">
                                     </div>
                                 </div>
 
                                 <!-- Link Input -->
                                 <div class="form-group">
-                                    <label for="projectLink" class="col-md-4 control-label">Link</label>
+                                    <label for="link" class="col-md-4 control-label">Link<?=!empty($errors['link']) ? $errors['link'] : ''; ?></label>
 
                                     <div class="col-md-6">
-                                        <input id="projectLink" type="text" class="form-control" name="projectLink" value="" required="" autofocus="">
+                                        <input id="link" type="text" class="form-control" name="link" value="<?=!empty($link) ? $link : ''; ?>" required="" autofocus="">
                                     </div>
                                 </div>
 

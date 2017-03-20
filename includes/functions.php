@@ -22,29 +22,27 @@ function getProjects($dbh) {
     return $result;
 }
 
-// function updateDatabase($dbh, $title, $image_url, $content, $link, $created_at, $updated_at){
-//   try {
-//      // the above turn on errors so we can see what goes wrong
-//     $sth = $dbh->prepare("INSERT INTO feedback (title, image_url, content, link, created_at, updated_at)
-//     VALUES (:title, :image_url, :content, :link, :created_at, :updated_at, NOW())");
-//     //Bind the "$name" to the SQL statement.
-//     $sth->bindParam(':title', $title, PDO::PARAM_STR);
-//     //Bind the "$email" to the SQL statement.
-//     $sth->bindParam(':image_url', $image_url, PDO::PARAM_STR);
-//     //Bind the "$feedback" to the SQL statement.
-//     $sth->bindParam(':content', $content, PDO::PARAM_STR);
-//     $sth->bindParam(':link', $link, PDO::PARAM_STR);
-//     $sth->bindParam(':created_at', $created_at, PDO::PARAM_STR);
-//     $sth->bindParam(':updated_at', $updated_at, PDO::PARAM_STR);
-//     //Execute the statement
-//     $success = $sth->execute();
+function createProject($dbh, $title, $image_url, $content, $link){
+  try {
+     // the above turn on errors so we can see what goes wrong
+    $sth = $dbh->prepare("INSERT INTO projects (title, image_url, content, link, created_at, updated_at)
+    VALUES (:title, :image_url, :content, :link, NOW(), NOW())");
+    //Bind the "$name" to the SQL statement.
+    $sth->bindParam(':title', $title, PDO::PARAM_STR);
+    //Bind the "$email" to the SQL statement.
+    $sth->bindParam(':image_url', $image_url, PDO::PARAM_STR);
+    //Bind the "$feedback" to the SQL statement.
+    $sth->bindParam(':content', $content, PDO::PARAM_STR);
+    $sth->bindParam(':link', $link, PDO::PARAM_STR);
+    //Execute the statement
+    $success = $sth->execute();
 
-//     return $success;
+    return $success;
 
-// // The below will display an error if there is one. Without the below code it is harder to troubleshoot.
-//   } catch (PDOException $e) {
-//     print ('Error' . $e-> getMessage() . '<br>');
-//     // $e'->' is the arrow symbol meaning get something out of the following. In this case, get something out of the getMessage() function.
-//     die();
-//   }
-// }
+// The below will display an error if there is one. Without the below code it is harder to troubleshoot.
+  } catch (PDOException $e) {
+    print ('Error' . $e-> getMessage() . '<br>');
+    // $e'->' is the arrow symbol meaning get something out of the following. In this case, get something out of the getMessage() function.
+    die();
+  }
+}
