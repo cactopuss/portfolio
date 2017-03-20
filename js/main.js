@@ -9,3 +9,5 @@
     $('#projectThumbnail').attr('src', 'img/place-holder.png');
   }
 }
+
+

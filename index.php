@@ -12,7 +12,7 @@ require 'partials/header.php';
               ?>
                 <!-- Start of Card -->
                 <div class="col-md-3">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="item">
                         <div class="panel-heading card-header">
                         <img class="img-responsive" src="<?= $project['image_url'] ?>">
                         </div>
@@ -24,6 +24,18 @@ require 'partials/header.php';
                             <a href="<?= $project['link'] ?>" class="btn btn-default btn-xs">
                                 View
                             </a>
+                            <form method="POST">
+                            <button onclick="return confirm('Are you sure you want to delete?')" class="btn btn-default btn-xs"><?php
+                            if(isset($_POST['item']) and is_numeric($_POST['item']))
+{
+ $delete = $_POST['item'];
+ $sql = "DELETE FROM `projects` where `id` = '$delete'";
+
+
+}
+                                Delete
+                            </button>
+                            </form>
                         </div>
                     </div>
                 </div>

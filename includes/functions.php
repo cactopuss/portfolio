@@ -46,3 +46,4 @@ function createProject($dbh, $title, $image_url, $content, $link){
     die();
   }
 }
+
